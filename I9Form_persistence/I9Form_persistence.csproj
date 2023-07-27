@@ -3,10 +3,13 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\I9Form_domain\I9Form_domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="I9Form_persistence.csproj" />
   </ItemGroup>
 </Project>
