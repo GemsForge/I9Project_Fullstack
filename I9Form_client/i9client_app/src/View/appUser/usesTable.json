@@ -1,0 +1,28 @@
+{
+"type": "SdfTable",
+"properties": {
+    "columnHeaders":[
+        {
+            "label": "ID"
+        },
+        {
+            "label": "First Name"
+        },
+        {
+            "label": "Last Name"
+        },
+        {
+            "label": "Email"
+        },
+        {
+            "label": " Password"
+        
+        }
+    ],
+    "rows": "",
+    "id": "",
+    "borders": "rows",
+    "className": "w-100"
+    
+}
+}

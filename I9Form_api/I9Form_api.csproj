@@ -18,9 +18,12 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\I9Form_client\I9Form_client.csproj">
+         <ProjectReference Include="..\I9Form_client\I9Form_client.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+         <ProjectReference Include="..\I9Form_persistence\I9Form_persistence.csproj">
+           <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+         </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Remove="Controllers\" />
