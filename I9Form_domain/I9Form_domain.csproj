@@ -9,6 +9,7 @@
   <ItemGroup>
     <None Remove="AppUser\" />
     <None Remove="AppUser\Model\" />
+    <None Remove="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="I9Form_domain.csproj" />
@@ -16,5 +17,10 @@
   <ItemGroup>
     <Folder Include="AppUser\" />
     <Folder Include="AppUser\Model\" />
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.9" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.32.1" />
   </ItemGroup>
 </Project>

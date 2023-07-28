@@ -9,7 +9,7 @@ export default function Register(){
 
 
 useEffect(() => {
-    axios.post<AppUser[]>("http://localhost:5000/api/appusers").then(response => {setAppUser(response.data);
+    axios.post<AppUser[]>("http://localhost:5000/api/appuser").then(response => {setAppUser(response.data);
 })
 }, [])
 }
