@@ -1,4 +1,4 @@
-namespace I9Form_client;
+﻿namespace I9Form_client;
 
 public class WeatherForecast
 {
@@ -10,3 +10,4 @@ public class WeatherForecast
 
     public string? Summary { get; set; }
 }
+

@@ -1,4 +1,4 @@
-{
+﻿{
   "short_name": "I9Form_client",
   "name": "I9Form_client",
   "icons": [
@@ -13,3 +13,4 @@
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }
+
