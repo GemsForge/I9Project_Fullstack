@@ -1,5 +1,4 @@
-﻿using System;
-namespace I9Form_domain.Helpers
+﻿namespace I9Form_domain.Helpers
 {
     public class AppSettings
     {
