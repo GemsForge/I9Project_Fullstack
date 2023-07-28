@@ -30,5 +30,36 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+using var serviceScope = app.Services.CreateScope();
+var services = serviceScope.ServiceProvider;
+var jsonFile = System.IO.File.ReadAllText(@"/Users/browndia/git/CapstoneNEW/i9Class_Library/AppUser/Data/AppUserSeedData.json");
+var logger = services.GetRequiredService<ILogger<Program>>();
+
+//Try and catch block for migration
+try
+{
+    var context = services.GetRequiredService<DataContext>();
+    await context.Database.MigrateAsync();
+    //Trya and catch blocks for seeding from json
+    try
+    {
+        //Read and store data from json in 'file'
+        //Await- process won't proceed until it's finished
+        //await Seed.SeedData(jsonFile, context);
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "AN ERROR OCCURRED WHILE SEEDING NEW DATA");
+    }
+}
+catch (Exception ex)
+{
+
+    logger.LogError(ex, "AN ERROR OCCURRED DURING MIGRATION");
+}
+
+
+
+
 app.Run();
 
