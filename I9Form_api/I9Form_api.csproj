@@ -27,11 +27,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Controllers\" />
+    <None Remove="Service\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="I9Form_api.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Service\" />
   </ItemGroup>
 </Project>
