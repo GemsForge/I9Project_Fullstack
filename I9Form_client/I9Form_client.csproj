@@ -37675,10 +37675,17 @@
     <None Include="i9client_app\node_modules\%40eslint-community\regexpp\index.js.map" />
     <None Include="i9client_app\node_modules\%40eslint-community\regexpp\index.d.ts" />
     <None Remove="Controllers\" />
+    <None Include="i9client_app\src\Components\AppUserList.tsx" />
+    <None Include="i9client_app\src\Components\AppUserDashboard.tsx" />
+    <None Include="i9client_app\src\Components\AppUserCard.tsx" />
+    <None Include="i9client_app\src\Components\Register.tsx" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="i9client_app\src\Components\" />
+    <Folder Include="i9client_app\src\Layout\" />
+    <Folder Include="i9client_app\src\View\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
