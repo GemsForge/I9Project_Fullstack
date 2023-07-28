@@ -58,8 +58,5 @@ catch (Exception ex)
     logger.LogError(ex, "AN ERROR OCCURRED DURING MIGRATION");
 }
 
-
-
-
 app.Run();
 
