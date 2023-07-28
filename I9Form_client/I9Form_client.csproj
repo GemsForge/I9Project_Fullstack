@@ -37674,8 +37674,12 @@
     <None Include="i9client_app\node_modules\%40eslint-community\regexpp\index.mjs" />
     <None Include="i9client_app\node_modules\%40eslint-community\regexpp\index.js.map" />
     <None Include="i9client_app\node_modules\%40eslint-community\regexpp\index.d.ts" />
+    <None Remove="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
