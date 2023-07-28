@@ -1,4 +1,5 @@
 ﻿using I9Form_persistence;
+using I9Form_persistence.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,12 +41,12 @@ try
 {
     var context = services.GetRequiredService<DataContext>();
     await context.Database.MigrateAsync();
-    //Trya and catch blocks for seeding from json
+    //Try and catch blocks for seeding 
     try
     {
         //Read and store data from json in 'file'
-        //Await- process won't proceed until it's finished
-        //await Seed.SeedData(jsonFile, context);
+        //Await - process won't proceed until it's finished
+        await Seed.SeedData(jsonFile, context);
     }
     catch (Exception ex)
     {
