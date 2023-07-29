@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
     var service = builder.Services;
     var config = builder.Configuration;
 
+    service.AddCors();
     service.AddControllers();
     service.AddEndpointsApiExplorer();
     service.AddSwaggerGen();
@@ -34,6 +35,7 @@ var app = builder.Build();
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+    app.UseCors(x => x.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader());
     app.UseAuthorization();
 
     app.MapControllers();
