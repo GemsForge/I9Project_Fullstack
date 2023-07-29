@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using I9Form_domain.AppUser.Model;
+using I9Form_domain.AppUser.Entity;
 
 namespace I9Form_persistence.Data
 {

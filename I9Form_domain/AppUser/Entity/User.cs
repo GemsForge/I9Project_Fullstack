@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace I9Form_domain.AppUser.Model
+namespace I9Form_domain.AppUser.Entity
 {
     public record User
     {

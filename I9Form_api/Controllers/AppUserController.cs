@@ -1,4 +1,4 @@
-﻿using I9Form_domain.AppUser.Model;
+﻿using I9Form_domain.AppUser.Entity;
 using I9Form_persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

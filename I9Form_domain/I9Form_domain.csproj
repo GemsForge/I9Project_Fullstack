@@ -8,13 +8,13 @@
 
   <ItemGroup>
     <None Remove="AppUser\" />
-    <None Remove="AppUser\Model\" />
+    <None Remove="AppUser\Entity\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="I9Form_domain.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AppUser\" />
-    <Folder Include="AppUser\Model\" />
+    <Folder Include="AppUser\Entity\" />
   </ItemGroup>
 </Project>
