@@ -28,6 +28,7 @@
   <ItemGroup>
     <None Remove="Controllers\" />
     <None Remove="Service\" />
+    <None Remove="Authentication\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="I9Form_api.csproj" />
@@ -35,5 +36,6 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Service\" />
+    <Folder Include="Authentication\" />
   </ItemGroup>
 </Project>

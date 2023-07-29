@@ -1,4 +1,5 @@
-﻿using I9Form_domain.Helpers;
+﻿using I9Form_domain.AppUser.Authentication;
+using I9Form_domain.Helpers;
 using I9Form_persistence;
 using I9Form_persistence.Data;
 using Microsoft.EntityFrameworkCore;
@@ -36,7 +37,10 @@ var app = builder.Build();
         app.UseSwagger();
         app.UseSwaggerUI();
     }
-    app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+    app.UseCors(x => x.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader());
+
+    // custom jwt auth middleware
+    app.UseMiddleware<JwtMiddleware>();
 
     app.UseAuthorization();
 
