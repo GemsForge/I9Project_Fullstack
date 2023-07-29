@@ -22,9 +22,9 @@ namespace I9Form_api.Service
     public class AppUserService : IAppUserService
     {
         private readonly DataContext _context;
-        private readonly JwtUtils _jwtUtils;
+        private readonly IJwtUtils _jwtUtils;
 
-        public AppUserService(DataContext context, JwtUtils jwtUtils )
+        public AppUserService(DataContext context, IJwtUtils jwtUtils )
         {
             _context = context;
             _jwtUtils = jwtUtils;

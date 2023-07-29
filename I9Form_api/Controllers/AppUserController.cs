@@ -22,11 +22,11 @@ namespace I9Form_api.Controllers
     public class AppUserController : BaseApiController
     {
         private readonly DataContext _dataContext;
-        private readonly AppUserService _appUserService;
+        private readonly IAppUserService _appUserService;
         private readonly AppSettings _appSettings;
 
 
-        public AppUserController(DataContext dataContext, IOptions<AppSettings> appSettings, AppUserService appUserService)
+        public AppUserController(DataContext dataContext, IOptions<AppSettings> appSettings, IAppUserService appUserService)
         {
             {
                 _dataContext = dataContext;

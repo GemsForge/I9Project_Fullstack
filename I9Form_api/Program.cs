@@ -1,4 +1,6 @@
-﻿using I9Form_api.Helpers;
+﻿using I9Form_api.Authentication;
+using I9Form_api.Helpers;
+using I9Form_api.Service;
 using I9Form_persistence;
 using I9Form_persistence.Data;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +22,10 @@ var builder = WebApplication.CreateBuilder(args);
     });
     // configure strongly typed settings object
 service.Configure<AppSettings>(config.GetSection("AppSettings"));
+
+    // configure DI for application services
+    service.AddScoped<IJwtUtils, JwtUtils>();
+    service.AddScoped<IAppUserService, AppUserService>();
 
 }
 
