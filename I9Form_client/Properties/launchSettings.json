@@ -11,10 +11,9 @@
     "I9Form_client": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:5279",
+      "applicationUrl": "http://localhost:63367",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "IIS Express": {
