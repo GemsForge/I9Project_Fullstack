@@ -1,11 +1,6 @@
-﻿using I9Form_api.Application.AppUsers;
-using I9Form_api.Application.Core;
-using I9Form_api.Authentication;
-using I9Form_api.Helpers;
-using I9Form_api.Service;
+﻿using I9Form_api.Exstensions;
 using I9Form_persistence;
 using I9Form_persistence.Data;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,23 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
     var config = builder.Configuration;
 
     //Tells where the Handlers are
-    service.AddMediatR(typeof(List.Handler));
-    service.AddAutoMapper(typeof(MappingProfile).Assembly);//<-- Locates all of the mapping profiles
-    service.AddCors();
 
     service.AddControllers();
-    service.AddEndpointsApiExplorer();
-    service.AddSwaggerGen();
-    service.AddDbContext<DataContext>(opt =>
-    {
-        opt.UseSqlite(config.GetConnectionString("SqlConnection"));
-    });
-    // configure strongly typed settings object
-    service.Configure<AppSettings>(config.GetSection("AppSettings"));
-
-    // configure DI for application services
-    service.AddScoped<IJwtUtils, JwtUtils>();
-    service.AddScoped<IAppUserService, AppUserService>();
+    //Requires one parameter: builder.Configuration
+    service.AddApplicationServices(config);
 
 }
 
