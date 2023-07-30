@@ -19,6 +19,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.9" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.32.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
   </ItemGroup>
   <ItemGroup>
          <ProjectReference Include="..\I9Form_client\I9Form_client.csproj">
@@ -34,6 +35,7 @@
     <None Remove="Authentication\" />
     <None Remove="Application\" />
     <None Remove="Application\AppUsers\" />
+    <None Remove="Application\Core\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="I9Form_api.csproj" />
@@ -44,5 +46,6 @@
     <Folder Include="Authentication\" />
     <Folder Include="Application\" />
     <Folder Include="Application\AppUsers\" />
+    <Folder Include="Application\Core\" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 ﻿using I9Form_api.Application.AppUsers;
+using I9Form_api.Application.Core;
 using I9Form_api.Authentication;
 using I9Form_api.Helpers;
 using I9Form_api.Service;
@@ -16,7 +17,9 @@ var builder = WebApplication.CreateBuilder(args);
 
     //Tells where the Handlers are
     service.AddMediatR(typeof(List.Handler));
+    service.AddAutoMapper(typeof(MappingProfile).Assembly);//<-- Locates all of the mapping profiles
     service.AddCors();
+
     service.AddControllers();
     service.AddEndpointsApiExplorer();
     service.AddSwaggerGen();
@@ -25,7 +28,7 @@ var builder = WebApplication.CreateBuilder(args);
         opt.UseSqlite(config.GetConnectionString("SqlConnection"));
     });
     // configure strongly typed settings object
-service.Configure<AppSettings>(config.GetSection("AppSettings"));
+    service.Configure<AppSettings>(config.GetSection("AppSettings"));
 
     // configure DI for application services
     service.AddScoped<IJwtUtils, JwtUtils>();
@@ -45,7 +48,7 @@ var app = builder.Build();
         app.UseSwagger();
         app.UseSwaggerUI();
     }
-    app.UseCors(x => x.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader());
+    app.UseCors(configurePolicy: x => x.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().WithMethods("PUT"));
     app.UseAuthorization();
 
     app.MapControllers();

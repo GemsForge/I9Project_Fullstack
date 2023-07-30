@@ -17,7 +17,7 @@ namespace I9Form_persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.9");
 
-            modelBuilder.Entity("I9Form_domain.AppUser.Model.User", b =>
+            modelBuilder.Entity("I9Form_domain.AppUser.Entity.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -26,9 +26,6 @@ namespace I9Form_persistence.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("EmailConfirm")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")

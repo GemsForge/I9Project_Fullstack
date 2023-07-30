@@ -97,16 +97,20 @@ namespace I9Form_api.Controllers
             });
         }
 
-            // PUT api/values/5
-            [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        // PUT api/update/3fa85f64-5717-4562-b3fc-2c963f66afa6
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> UpdateUser(Guid id, User user)
         {
+
+            user.Id = id;
+            return Ok(await Mediator.Send(new Update.Command { User = user }));
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
+            return Ok(await Mediator.Send(new Delete.Command { Id = id }));
         }
     }
 }

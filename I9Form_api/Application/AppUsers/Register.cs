@@ -22,9 +22,10 @@ namespace I9Form_api.Application.Authentication
                 //the request will have a user
                 public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
                 {
-
+                    //Adds the request(New User) to a User Object
                     _context.Users.Add(request.User);
 
+                    //Saves the request(New User) to a User Object
                     await _context.SaveChangesAsync();
 
                     //Let's Api know that we're done
