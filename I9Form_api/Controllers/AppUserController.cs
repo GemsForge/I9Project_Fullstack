@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using I9Form_api.Application.Authentication;
+using I9Form_api.Application.AppUsers.Payload.request;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,10 +23,10 @@ namespace I9Form_api.Controllers
     [ApiController]
     public class AppUserController : BaseApiController
     {
-        
+
         private readonly IAppUserService _appUserService;
         private readonly AppSettings _appSettings;
-       
+
 
         public AppUserController(IOptions<AppSettings> appSettings, IAppUserService appUserService)
         {
@@ -34,7 +35,6 @@ namespace I9Form_api.Controllers
                 _appUserService = appUserService;
             }
         }
-
 
         // GET: api/Users
         [HttpGet]
@@ -58,19 +58,21 @@ namespace I9Form_api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser([FromBody] User newUser)  //**FromBody isn't necessary
         {
-            return Ok(await Mediator.Send(new Register.Command {User = newUser }));
+            return Ok(await Mediator.Send(new Register.Command { User = newUser }));
         }
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public ActionResult<User> Authenticate(
-        AuthenticateRequest response
-        )
+         AuthenticateRequest response
+         )
         {
             var user = _appUserService.Authenticate(response);
 
+
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
+            // return basic user info and authentication token
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -89,29 +91,29 @@ namespace I9Form_api.Controllers
             // return basic user info and authentication token
             return Ok(new
             {
-                Id = user.Id,
-                Username = user.Username,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
+                user.Id,
+                user.Username,
+                user.FirstName,
+                user.LastName,
                 Token = tokenString
             });
         }
 
-        // PUT api/update/3fa85f64-5717-4562-b3fc-2c963f66afa6
-        [HttpPut("update/{id}")]
-        public async Task<IActionResult> UpdateUser(Guid id, User user)
-        {
+    // PUT api/update/3fa85f64-5717-4562-b3fc-2c963f66afa6
+    [HttpPut("update/{id}")]
+    public async Task<IActionResult> UpdateUser(Guid id, User user)
+    {
 
-            user.Id = id;
-            return Ok(await Mediator.Send(new Update.Command { User = user }));
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
-        {
-            return Ok(await Mediator.Send(new Delete.Command { Id = id }));
-        }
+        user.Id = id;
+        return Ok(await Mediator.Send(new Update.Command { User = user }));
     }
+
+    // DELETE api/values/5
+    [HttpDelete("delete/{id}")]
+    public async Task<IActionResult> DeleteUser(Guid id)
+    {
+        return Ok(await Mediator.Send(new Delete.Command { Id = id }));
+    }
+}
 }
 

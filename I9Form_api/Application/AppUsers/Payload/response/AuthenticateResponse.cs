@@ -4,6 +4,9 @@ namespace I9Form_domain.AppUser.Payload.response
 {
     public class AuthenticateResponse
     {
+        public bool IsAuthenticated { get; set; }
+        public string ErrorMessage { get; set; }
+
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -18,5 +21,6 @@ namespace I9Form_domain.AppUser.Payload.response
             Username = user.Username;
             Token = token;
         }
+        public AuthenticateResponse() { }
     }
 }

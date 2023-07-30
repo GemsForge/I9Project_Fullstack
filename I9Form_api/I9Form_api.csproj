@@ -37,6 +37,7 @@
     <None Remove="Application\AppUsers\" />
     <None Remove="Application\Core\" />
     <None Remove="Exstensions\" />
+    <None Remove="Application\AppUsers\Payload\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="I9Form_api.csproj" />
@@ -49,5 +50,6 @@
     <Folder Include="Application\AppUsers\" />
     <Folder Include="Application\Core\" />
     <Folder Include="Exstensions\" />
+    <Folder Include="Application\AppUsers\Payload\" />
   </ItemGroup>
 </Project>

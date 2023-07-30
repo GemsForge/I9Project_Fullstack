@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using MediatR;
 
-
-namespace I9Form_domain.AppUser.Payload.request
+namespace I9Form_api.Application.AppUsers.Payload.request
 {
     public class AuthenticateRequest
     {
