@@ -6,11 +6,12 @@ using I9Form_api.Helpers;
 using I9Form_api.Service;
 using I9Form_domain.AppUser.Entity;
 using I9Form_domain.AppUser.Payload.request;
-using I9Form_persistence;
+using I9Form_api.Application.AppUsers;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using I9Form_api.Application.Authentication;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,15 +22,14 @@ namespace I9Form_api.Controllers
     [ApiController]
     public class AppUserController : BaseApiController
     {
-        private readonly DataContext _dataContext;
+        
         private readonly IAppUserService _appUserService;
         private readonly AppSettings _appSettings;
+       
 
-
-        public AppUserController(DataContext dataContext, IOptions<AppSettings> appSettings, IAppUserService appUserService)
+        public AppUserController(IOptions<AppSettings> appSettings, IAppUserService appUserService)
         {
             {
-                _dataContext = dataContext;
                 _appSettings = appSettings.Value;
                 _appUserService = appUserService;
             }
@@ -40,20 +40,25 @@ namespace I9Form_api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<User>>> GetUsers()
         {
-            return await _dataContext.Users.ToListAsync();
+            //return await _dataContext.Users.ToListAsync();
+            //MediatR equivalant :
+            return await Mediator.Send(new List.Query());
         }
 
         //Get User by ID: Pass Guid id as parameter
         [HttpGet("{id}")] //api/appuser/fjofda789fs
         public async Task<ActionResult<User>> GetUser(Guid id)
         {
-            return await _dataContext.Users.FindAsync(id);
+            //return await _dataContext.Users.FindAsync(id);
+            return await Mediator.Send(new UserDetails.Query { Id = id });
         }
 
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
+        // IActionResult returns status code. Sends User object in the body 
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterUser([FromBody] User newUser)  //**FromBody isn't necessary
         {
+            return Ok(await Mediator.Send(new Register.Command {User = newUser }));
         }
 
         [AllowAnonymous]
