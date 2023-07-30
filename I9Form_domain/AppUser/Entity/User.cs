@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace I9Form_domain.AppUser.Model
+namespace I9Form_domain.AppUser.Entity
 {
     public record User
     {
@@ -19,17 +19,17 @@ namespace I9Form_domain.AppUser.Model
         [Required]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
         public string Email { get; set; }
-        public string EmailConfirm { get; set; }
+        //public string EmailConfirm { get; set; }
         public string Username { get; set; }
         [Required]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$")]
         public string Password { get; set; }
 
         //Not included in db. Compare password entered to password in db
-        [NotMapped]
-        [Required]
-        [Compare("Password")]
-        public string F_Password { get; set; }
+        //[NotMapped]
+        //[Required]
+        //[Compare("Password")]
+        //public string F_Password { get; set; }
 
         public string FullName()
         {

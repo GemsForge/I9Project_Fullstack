@@ -55,7 +55,6 @@
     <None Include="i9client_app\src\setupTests.ts" />
     <None Include="i9client_app\src\reportWebVitals.ts" />
     <None Include="i9client_app\src\react-app-env.d.ts" />
-    <None Include="i9client_app\src\logo.svg" />
     <None Include="i9client_app\node_modules\postcss-attribute-case-insensitive\LICENSE" />
     <None Include="i9client_app\node_modules\postcss-attribute-case-insensitive\CHANGELOG.md" />
     <None Include="i9client_app\node_modules\postcss-attribute-case-insensitive\README.md" />
@@ -37679,6 +37678,13 @@
     <None Include="i9client_app\src\Components\AppUserDashboard.tsx" />
     <None Include="i9client_app\src\Components\AppUserCard.tsx" />
     <None Include="i9client_app\src\Components\Register.tsx" />
+    <None Include="i9client_app\src\redux\_store\index.ts" />
+    <None Include="i9client_app\src\services\auth-header.ts" />
+    <None Include="i9client_app\src\services\auth.service.ts" />
+    <None Include="i9client_app\src\services\user.service.ts" />
+    <None Include="i9client_app\.env" />
+    <None Include="i9client_app\src\_helpers\history.ts" />
+    <None Include="i9client_app\src\_helpers\index.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37686,6 +37692,8 @@
     <Folder Include="i9client_app\src\Components\" />
     <Folder Include="i9client_app\src\Layout\" />
     <Folder Include="i9client_app\src\View\" />
+    <Folder Include="i9client_app\src\services\" />
+    <Folder Include="i9client_app\src\types\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
