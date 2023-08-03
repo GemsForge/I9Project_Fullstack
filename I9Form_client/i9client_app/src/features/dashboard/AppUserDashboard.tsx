@@ -1,5 +1,5 @@
 import { Grid, List } from "semantic-ui-react";
-import { User } from "../types/user.type";
+import User from "../types/user.type";
 import AppUserList from "../AppUserList";
 
 

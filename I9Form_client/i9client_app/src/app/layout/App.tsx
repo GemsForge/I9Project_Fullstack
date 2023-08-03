@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import '../layout/styles.css';
 import { Container, Header, List } from 'semantic-ui-react';
 import axios from 'axios';
-import { User } from '../../features/types/user.type';
+import User from '../../features/types/user.type';
 import NavBar from './NavBar';
 import AppUserDashboard from '../../features/dashboard/AppUserDashboard';
 
