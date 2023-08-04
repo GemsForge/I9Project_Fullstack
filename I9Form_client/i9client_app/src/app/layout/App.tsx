@@ -22,8 +22,8 @@ function App() {
     <div >
       <NavBar />
       <Container style={{ marginTop: "7em" }}>
-        {/* <AppUserDashboard users={users} /> */}
-        <LoginView/>
+        <AppUserDashboard users={users} />
+        {/* <LoginView/> */}
         {/* <RegisterView/> */}
       </Container>
 
