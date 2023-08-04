@@ -1,5 +1,5 @@
 import { Segment, Item } from "semantic-ui-react";
-import User from "./types/user.type";
+import User from "../user/user.type";
 
 interface Props{
     users: User[];
