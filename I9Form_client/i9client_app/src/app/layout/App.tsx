@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import '../layout/styles.css';
 import { Container, Header, List } from 'semantic-ui-react';
 import axios from 'axios';
-import User from '../../features/user/user.type';
+import User from '../features/user/user.type';
 import NavBar from './NavBar';
-import AppUserDashboard from '../../features/dashboard/AppUserDashboard';
+import AppUserDashboard from '../features/dashboard/AppUserDashboard';
 import LoginView from './authentication/Login/login_view';
 import RegisterView from './authentication/Register/register_view';
 
