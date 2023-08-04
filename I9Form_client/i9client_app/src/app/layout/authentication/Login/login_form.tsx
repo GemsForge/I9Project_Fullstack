@@ -9,8 +9,8 @@ export default function LoginForm() {
             <Form>
                 <Form.Input type="text" placeholder='Username' />
                 <Form.Input type="password" placeholder='Password' />
-                <Button primary color="violet"> Login</Button>
-                <Button secondary color="violet"> Register</Button>
+                <Button primary > Login</Button>
+                <Button secondary > Register</Button>
             </Form>
         </Segment>
     )

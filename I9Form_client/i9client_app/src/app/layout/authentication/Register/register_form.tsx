@@ -12,7 +12,8 @@ export default function RegisterForm() {
                 <Form.Input type="email" placeholder='Enter Employee Email' />
                 <Form.Input type="password" placeholder='Create Password' />
                 <Form.Input type="password" placeholder='Confirm Password' />
-                <Form.Button color="violet"> Activate User Access</Form.Button>
+                <Form.Button primary> Activate User Access</Form.Button>
+                <Form.Button secondary > Login</Form.Button>
             </Form>
         </Segment>
     )
