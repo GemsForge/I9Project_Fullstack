@@ -5,6 +5,8 @@ import axios from 'axios';
 import User from '../../features/user/user.type';
 import NavBar from './NavBar';
 import AppUserDashboard from '../../features/dashboard/AppUserDashboard';
+import LoginView from './authentication/Login/login_view';
+import RegisterView from './authentication/Register/register_view';
 
 
 function App() {
@@ -20,7 +22,9 @@ function App() {
     <div >
       <NavBar />
       <Container style={{ marginTop: "7em" }}>
-        <AppUserDashboard users={users} />
+        {/* <AppUserDashboard users={users} /> */}
+        <LoginView/>
+        {/* <RegisterView/> */}
       </Container>
 
     </div>

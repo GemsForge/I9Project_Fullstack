@@ -6,7 +6,7 @@ export default function NavBar() {
         <Menu inverted fixed='top'>
             <Container>
                 < Menu.Item header>
-                    <img src="/assets/adpLogo.png" alt="logo" style={{ marginRight: 10 }} />
+                    <img src="/assets/images/adpLogo.png" alt="logo" style={{ marginRight: 10 }} />
                     App Users
                 </Menu.Item>
                 < Menu.Item name='Users' />
