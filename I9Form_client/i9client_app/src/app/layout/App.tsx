@@ -7,6 +7,7 @@ import NavBar from './NavBar';
 import AppUserDashboard from '../features/dashboard/AppUserDashboard';
 import LoginView from './authentication/Login/login_view';
 import RegisterView from './authentication/Register/register_view';
+import ApplicantView from './applicant/applicant.portal';
 
 
 function App() {
@@ -22,9 +23,10 @@ function App() {
     <div >
       <NavBar />
       <Container style={{ marginTop: "7em" }}>
-        <AppUserDashboard users={users} />
+        {/* <AppUserDashboard users={users} /> */}
         {/* <LoginView/> */}
         {/* <RegisterView/> */}
+        <ApplicantView/>
       </Container>
 
     </div>
