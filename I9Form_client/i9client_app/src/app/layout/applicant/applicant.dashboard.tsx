@@ -1,5 +1,5 @@
 
-import { Button, Container, Grid, Header, Segment, Table } from "semantic-ui-react";
+import { Button, Container, Header, Segment, Table } from "semantic-ui-react";
 
 export default function ApplicantDashboard() {
     return (

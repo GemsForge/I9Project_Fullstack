@@ -1,6 +1,8 @@
 import { Grid, Header, Segment } from "semantic-ui-react";
 import ApplicantProfile from "./applicant.profile";
-import ApplicantDashboard from "./applicant.dashboard";
+// import ApplicantDashboard from "./applicant.dashboard";
+import Section1Title from "../form/section1/Form.Layout/Section1_tittle";
+import PreparerSignatureInfo from "../form/section1/Form.Layout/PreparerSignatureInfo";
 
 export default function ApplicantView(){
     return(
@@ -16,9 +18,11 @@ export default function ApplicantView(){
            </Grid.Column>
            < Grid.Column width='12'>
             <Segment>
-            <ApplicantDashboard/>
+            {/* <ApplicantDashboard/> */}
+            {/* <Section1Title/> */}
+            <PreparerSignatureInfo/>
             </Segment>
-           
+            
            </Grid.Column>
         </Grid>
     </>
