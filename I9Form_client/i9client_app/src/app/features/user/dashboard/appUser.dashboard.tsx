@@ -1,9 +1,9 @@
 import { Grid, Label, List } from "semantic-ui-react";
 import User from "../user.type";
-import AppUserList from "./appUser.getUserList";
-import UserForm from "../form/UserForm";
+import AppUserList from "./appUser.getAll";
+import UserForm from "./appUser.register";
 import TestBanner from "../../../../test/TestBanner";
-import GetUserComponent from "./AppUser.GetUser";
+import GetUserComponent from "./appUser.get";
 
 
 
