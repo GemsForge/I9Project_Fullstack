@@ -17,6 +17,7 @@ interface Props {
     editMode_state: boolean;
     openForm_function: (id: string) => void;
     closeForm_function: () => void;
+    createOrEditUser_function: (user: User) => void;
 
 }
 
@@ -25,7 +26,8 @@ export default function AppUserDashboard({
     users_state, selectedUser_state,
     selectUser_function, cancelSelectUser_function,
     editMode_state, 
-    openForm_function,closeForm_function
+    openForm_function,closeForm_function,
+    createOrEditUser_function
 }: Props) {
 
     return (
@@ -53,7 +55,9 @@ export default function AppUserDashboard({
                         />}
                      {editMode_state && 
                      <UserForm user_state={selectedUser_state}  
-                     closeForm_function={closeForm_function} />}   
+                     closeForm_function={closeForm_function}
+                     createOrEdit_function={createOrEditUser_function}
+                     />}   
                    
                     {/* <GetUserComponent /> */}
                 </Grid.Column>

@@ -6,13 +6,15 @@ interface Props{
     //make sure state is either User Objet or Undefined
     user_state: User | undefined;
     closeForm_function: () => void;
+    createOrEdit_function:(user: User)=> void;
     
 }
-export default function UserFrom({user_state: selectedUser_state, closeForm_function}: Props) {
+export default function UserFrom({user_state: selectedUser_state, closeForm_function, createOrEdit_function}: Props) {
 
     //Set initialstate of the form inputs
     //IF User exist THEN set state to...
     const initialstate = selectedUser_state ?? {
+        id:'',
         firstName:'',
         lastName:'',
         email: '',
@@ -25,7 +27,9 @@ export default function UserFrom({user_state: selectedUser_state, closeForm_func
 
     //HANDLE SUBMIT
     function handleSubmit(){
-        console.log(user_state);
+        // console.log(user_state);
+        //passes the user object
+        createOrEdit_function(user_state);
     }
     //HANDLE INPUT  event type ChangeEvent<type HTMLInputElement> ADD HTMLTextArea... & so IF other than <TextArea>
     function handleInputChange(e: ChangeEvent<HTMLInputElement>){
@@ -34,6 +38,7 @@ export default function UserFrom({user_state: selectedUser_state, closeForm_func
         //Spread setState to all(...) props to the the form
         //[ ]: target the property that matches 'name' and key 'value'
         setUser_state({...user_state, [name]: value})
+       
         
     }
    

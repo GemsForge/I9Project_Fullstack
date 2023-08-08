@@ -45,6 +45,14 @@ function App() {
     //IF onClick={()}
     setEditMode(false);
   }
+  function handleCreateOrEditUser(user:User){
+    user.id 
+    ? setUsers([...users.filter(u => u.id!==user.id), user])
+    :setUsers([...users, user]);
+    setEditMode(false);
+    setSelectedUser(user);
+
+  }
   //pass the following properties to the appUser dashboard
   return (
     <div >
@@ -60,7 +68,8 @@ function App() {
           //Don't forget to set the state in chld components
           editMode_state={editMode}
           openForm_function={handleFormOpen}
-          closeForm_function={handleFormClose}/>
+          closeForm_function={handleFormClose}
+          createOrEditUser_function={handleCreateOrEditUser}/>
         {/* <LoginView/>  */}
         {/* <RegisterView/> */}
         {/* <ApplicantView/> */}

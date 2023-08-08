@@ -6,6 +6,7 @@ interface Props {
     user_state: User
     cancelSelectUser_function: () => void;
     openForm_function:(id:string) => void;
+    
 
 }
 
