@@ -18,6 +18,7 @@ interface Props {
     openForm_function: (id: string) => void;
     closeForm_function: () => void;
     createOrEditUser_function: (user: User) => void;
+    deleteUser_function: (id: string) =>void;
 
 }
 
@@ -27,7 +28,9 @@ export default function AppUserDashboard({
     selectUser_function, cancelSelectUser_function,
     editMode_state, 
     openForm_function,closeForm_function,
-    createOrEditUser_function
+    createOrEditUser_function,
+    deleteUser_function
+
 }: Props) {
 
     return (
@@ -37,7 +40,10 @@ export default function AppUserDashboard({
             <Grid>
 
                 < Grid.Column width='10'>
-                    <AppUserList users_state={users_state} selectUser_function={selectUser_function} />
+                    <AppUserList 
+                    users_state={users_state} 
+                    selectUser_function={selectUser_function}
+                    deleteUser_function={deleteUser_function} />
                 </Grid.Column>
                 <Grid.Column width='5'>
                     {/* Looping the Appuser Details list with the 2 conditions.

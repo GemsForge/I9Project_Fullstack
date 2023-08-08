@@ -54,6 +54,11 @@ function App() {
     setSelectedUser(user);
 
   }
+  function handDeleteUser(id: string){
+    setUsers([...users.filter(x=> x.id !== id)])
+  }
+
+
   //pass the following properties to the appUser dashboard
   return (
     <div >
@@ -70,7 +75,9 @@ function App() {
           editMode_state={editMode}
           openForm_function={handleFormOpen}
           closeForm_function={handleFormClose}
-          createOrEditUser_function={handleCreateOrEditUser}/>
+          createOrEditUser_function={handleCreateOrEditUser}
+          deleteUser_function= {handDeleteUser}
+          />
         {/* <LoginView/>  */}
         {/* <RegisterView/> */}
         {/* <ApplicantView/> */}
