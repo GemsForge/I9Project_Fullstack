@@ -7,6 +7,7 @@ import NavBar from './app/layout/NavBar';
 // import ApplicantView from './app/layout/applicant/applicant.portal';
 import AppUserDashboard from './app/features/user/dashboard/appUser.dashboard';
 import agent from './app/api/agent';
+import {v4 as uuid} from 'uuid';
 
 
 function App() {
@@ -48,7 +49,7 @@ function App() {
   function handleCreateOrEditUser(user:User){
     user.id 
     ? setUsers([...users.filter(u => u.id!==user.id), user])
-    :setUsers([...users, user]);
+    :setUsers([...users, {...user, id: uuid()}]);
     setEditMode(false);
     setSelectedUser(user);
 
