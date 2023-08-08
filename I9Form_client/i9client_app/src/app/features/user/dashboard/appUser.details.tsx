@@ -1,4 +1,4 @@
-import { Button, Card, Header, Image, List, Segment, SegmentGroup } from "semantic-ui-react";
+import { Button, Card, Image, List} from "semantic-ui-react";
 import User from "../user.type";
 
 

@@ -1,4 +1,4 @@
-import { Grid, Label, List } from "semantic-ui-react";
+import { Grid, Label } from "semantic-ui-react";
 import User from "../user.type";
 import AppUserList from "./appUser.getAll";
 import UserForm from "./appUser.register";
