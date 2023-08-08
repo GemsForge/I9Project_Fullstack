@@ -1,15 +1,21 @@
-import { Segment, Item } from "semantic-ui-react";
+import { Segment, Item, Button } from "semantic-ui-react";
 import User from "../user.type";
 
+//Pass User List as a prop
+//pass select user function as a prop
 interface Props{
-    users: User[];
-}
+    users_state: User[];
+      //passing function as prop  => return type void
+    selectUser_function: (id: string) => void;
+    
 
-export default function UserList({users}: Props){
+}
+//pass props into User list function
+export default function UserList({users_state,selectUser_function}: Props){
     return(
         <Segment>
             <Item.Group divided>
-                {users.map(user => (
+                {users_state.map(user => (
                     <Item key={user.id}>
                         <Item.Content>
                             <Item.Header as='u'>{user.firstName} {user.lastName}</Item.Header>
@@ -18,7 +24,11 @@ export default function UserList({users}: Props){
                                 <div>{user.email}</div>
                                 <div>{user.username}</div>
                             </Item.Description>
-                             
+                            <Item.Extra>
+                                {/* waits for the onClick event */}
+                                <Button onClick={()=>selectUser_function(user.id)} floated='right'
+                                content='View' primary/>
+                            </Item.Extra>
                         </Item.Content>
                     </Item>
                 ))}

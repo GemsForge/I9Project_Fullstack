@@ -1,6 +1,10 @@
 import { Button, Container, Menu } from "semantic-ui-react";
 
-export default function NavBar() {
+interface Props{
+    openForm_function: () => void;
+}
+
+export default function NavBar({openForm_function}: Props) {
     return (
         <Menu inverted fixed='top'>
             <Container>
@@ -10,7 +14,8 @@ export default function NavBar() {
                 </Menu.Item>
                 < Menu.Item name='Users' />
                 <Menu.Item>
-                    <Button positive content='Add Applicant' />
+                    {/* //Renders when clicked */}
+                    <Button onClick={openForm_function} positive content='Add App User' />
                 </Menu.Item>
 
             </Container>
