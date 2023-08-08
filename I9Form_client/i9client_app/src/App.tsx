@@ -8,6 +8,7 @@ import NavBar from './app/layout/NavBar';
 import AppUserDashboard from './app/features/user/dashboard/appUser.dashboard';
 import agent from './app/api/agent';
 import {v4 as uuid} from 'uuid';
+import LoadingComponent from './app/layout/LoadingComponent';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User | undefined>();
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
@@ -23,7 +25,14 @@ function App() {
     // axios.get<User[]>('http://localhost:5000/api/appuser').then(response => {
     //   setUsers(response.data);
     agent.Users.list().then(response => {
+      //TODO: will need this pattern for parsing date
+      // let users: Users[] = [];
+      // response.forEach(user => {
+      //   user.date = user.date.split('T')[0];
+      //   user.push(response)
+      // })
       setUsers(response);
+      setLoading(false);
     })
   }, [])
 
@@ -57,7 +66,7 @@ function App() {
   function handDeleteUser(id: string){
     setUsers([...users.filter(x=> x.id !== id)])
   }
-
+ if(loading) return <LoadingComponent content='Loading application'/>
 
   //pass the following properties to the appUser dashboard
   return (
