@@ -3,7 +3,6 @@ import User from "../user.type";
 import AppUserList from "./appUser.getAll";
 import UserForm from "./appUser.register";
 import TestBanner from "../../../../test/TestBanner";
-import GetUserComponent from "./appUser.get";
 import AppUserDetails from "./appUser.details";
 
 
