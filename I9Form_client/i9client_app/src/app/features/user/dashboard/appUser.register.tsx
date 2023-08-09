@@ -7,9 +7,10 @@ interface Props{
     user_state: User | undefined;
     closeForm_function: () => void;
     createOrEdit_function:(user: User)=> void;
+    submitting_state: boolean;
     
 }
-export default function UserFrom({user_state: selectedUser_state, closeForm_function, createOrEdit_function}: Props) {
+export default function UserFrom({user_state: selectedUser_state, closeForm_function, createOrEdit_function, submitting_state}: Props) {
 
     //Set initialstate of the form inputs
     //IF User exist THEN set state to...
@@ -55,11 +56,10 @@ export default function UserFrom({user_state: selectedUser_state, closeForm_func
                     <Form.Input type='email' placeholder='Email Adress' value={user_state.email}  name='email'/>
                     <Form.Input type='text' placeholder='Username' value={user_state.username} name='username'/>
                     <Form.Input type='text' placeholder='Password' value={user_state.password}  name='password'/>
-                    <Button floated='right' positive  type='submit' content='Submit' />
+                    <Button loading={submitting_state} floated='right' positive  type='submit' content='Submit' />
                     <Button onClick={closeForm_function} floated='right' basic type='button' content='Cancel' value={user_state.firstName}/>
                 </Form>
             </Segment>
         </>
-
     )
 }

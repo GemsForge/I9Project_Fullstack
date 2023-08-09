@@ -18,7 +18,8 @@ interface Props {
     openForm_function: (id: string) => void;
     closeForm_function: () => void;
     createOrEditUser_function: (user: User) => void;
-    deleteUser_function: (id: string) =>void;
+    deleteUser_function: (id: string) => void;
+    submitting_state: boolean;
 
 }
 
@@ -26,10 +27,11 @@ interface Props {
 export default function AppUserDashboard({
     users_state, selectedUser_state,
     selectUser_function, cancelSelectUser_function,
-    editMode_state, 
-    openForm_function,closeForm_function,
+    editMode_state,
+    openForm_function, closeForm_function,
     createOrEditUser_function,
-    deleteUser_function
+    deleteUser_function,
+    submitting_state
 
 }: Props) {
 
@@ -40,10 +42,10 @@ export default function AppUserDashboard({
             <Grid>
 
                 < Grid.Column width='10'>
-                    <AppUserList 
-                    users_state={users_state} 
-                    selectUser_function={selectUser_function}
-                    deleteUser_function={deleteUser_function} />
+                    <AppUserList
+                        users_state={users_state}
+                        selectUser_function={selectUser_function}
+                        deleteUser_function={deleteUser_function} />
                 </Grid.Column>
                 <Grid.Column width='5'>
                     {/* Looping the Appuser Details list with the 2 conditions.
@@ -54,17 +56,19 @@ export default function AppUserDashboard({
 
                     {/* IF selectedUser exists AND The component is NOT already in editmode THEN.... */}
                     {selectedUser_state && !editMode_state &&
-                        <AppUserDetails 
-                        user_state={selectedUser_state} 
-                        cancelSelectUser_function={cancelSelectUser_function} 
-                        openForm_function={openForm_function}
+                        <AppUserDetails
+                            user_state={selectedUser_state}
+                            cancelSelectUser_function={cancelSelectUser_function}
+                            openForm_function={openForm_function}
                         />}
-                     {editMode_state && 
-                     <UserForm user_state={selectedUser_state}  
-                     closeForm_function={closeForm_function}
-                     createOrEdit_function={createOrEditUser_function}
-                     />}   
-                   
+                    {editMode_state &&
+                        <UserForm user_state={selectedUser_state}
+                            closeForm_function={closeForm_function}
+                            createOrEdit_function={createOrEditUser_function}
+                            submitting_state={submitting_state}
+
+                        />}
+
                     {/* <GetUserComponent /> */}
                 </Grid.Column>
             </Grid>

@@ -21,21 +21,6 @@
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
-    <None Remove="ClientApp\src\reportWebVitals.js" />
-    <None Remove="ClientApp\src\setupProxy.js" />
-    <None Remove="ClientApp\src\index.js" />
-    <None Remove="ClientApp\src\custom.css" />
-    <None Remove="ClientApp\src\serviceWorkerRegistration.js" />
-    <None Remove="ClientApp\src\App.test.js" />
-    <None Remove="ClientApp\src\service-worker.js" />
-    <None Remove="ClientApp\src\AppRoutes.js" />
-    <None Remove="ClientApp\src\App.js" />
-    <None Remove="ClientApp\src\components\Layout.js" />
-    <None Remove="ClientApp\src\components\NavMenu.js" />
-    <None Remove="ClientApp\src\components\Home.js" />
-    <None Remove="ClientApp\src\components\Counter.js" />
-    <None Remove="ClientApp\src\components\NavMenu.css" />
-    <None Remove="ClientApp\src\components\FetchData.js" />
     <None Include="I9Form_client.csproj" />
     <None Include="i9client_app\README.md" />
     <None Include="i9client_app\package-lock.json" />

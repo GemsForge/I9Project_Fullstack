@@ -8,7 +8,7 @@ const sleep = (delay: number) => {
   });
 };
 
-axios.defaults.baseURL = "http://localhost:5000/api/appuser";
+axios.defaults.baseURL = "http://localhost:5000/api/appuser/";
 
 //2. LOADING: Define axios response for loading
 axios.interceptors.response.use(async (response) => {
@@ -19,7 +19,7 @@ axios.interceptors.response.use(async (response) => {
     console.log(error);
     return await Promise.reject(error);
   }
-})
+});
 
 //Add a generic type ("<T>") => Types the response object => <T> == <User>
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
@@ -28,8 +28,9 @@ const request = {
   //request will take a URl THEN store in the response body (server response body from url)
   get: <T>(url: string) => axios.get<T>(url).then(responseBody),
   //post &put req take url and body:{}
-  post: <T>(url: string, body: {}) => axios.post<T>(url).then(responseBody),
-  put: <T>(url: string, body: {}) => axios.put<T>(url).then(responseBody),
+  post: <T>(url: string, body: {}) =>
+    axios.post<T>(url, body).then(responseBody),
+  put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
   delete: <T>(url: string) => axios.delete<T>(url).then(responseBody),
 };
 
@@ -37,7 +38,12 @@ const Users = {
   //The request endpoint from the server
   //Returns a promise of type 'any' at the moment
   //"Http get: GetUser()"
-  list: () => request.get<User[]>("/"),
+  list: () => request.get<User[]>(""),
+  details: (id: string) => request.get<User>(`${id}`),
+
+  register: (user: User) => request.post<void>("register", user),
+  update: (user: User) => request.put<void>(`update/${user.id}`, user),
+  delete: (id: string) => axios.delete<void>(`delete/${id}`),
 };
 // const User={
 //     //The request endpoint from the server that returns a promise
