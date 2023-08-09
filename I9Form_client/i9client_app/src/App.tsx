@@ -7,7 +7,8 @@ import NavBar from './app/layout/NavBar';
 // import ApplicantView from './app/layout/applicant/applicant.portal';
 import AppUserDashboard from './app/features/user/dashboard/appUser.dashboard';
 import agent from './app/api/agent';
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
+import LoadingComponent from './app/layout/LoadingComponent';
 
 
 function App() {
@@ -15,6 +16,8 @@ function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User | undefined>();
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
 
   useEffect(() => {
@@ -23,48 +26,67 @@ function App() {
     // axios.get<User[]>('http://localhost:5000/api/appuser').then(response => {
     //   setUsers(response.data);
     agent.Users.list().then(response => {
+      //TODO: will need this pattern for parsing date
+      // let users: Users[] = [];
+      // response.forEach(user => {
+      //   user.date = user.date.split('T')[0];
+      //   user.push(response)
+      // })
       setUsers(response);
+      setLoading(false);
     })
   }, [])
 
 
-  function handleSelectUser(id: string ) {
-    setSelectedUser(users.find(response => response.id === id ));
+  function handleSelectUser(id: string) {
+    setSelectedUser(users.find(response => response.id === id));
 
   }
   //setUser == undefinded
   function handleCancelSelectUser() {
     setSelectedUser(undefined);
   }
- //TODO: pass function to the navBar add User button
-  function handleFormOpen(id?: string){
+  //TODO: pass function to the navBar add User button
+  function handleFormOpen(id?: string) {
     //IF onClick={(id)}
-    id? handleSelectUser(id) : handleCancelSelectUser();
+    id ? handleSelectUser(id) : handleCancelSelectUser();
     setEditMode(true);
   }
-  function handleFormClose(){
+  function handleFormClose() {
     //IF onClick={()}
     setEditMode(false);
   }
-  function handleCreateOrEditUser(user:User){
-    user.id 
-    ? setUsers([...users.filter(u => u.id!==user.id), user])
-    :setUsers([...users, {...user, id: uuid()}]);
-    setEditMode(false);
-    setSelectedUser(user);
+  function handleCreateOrEditUser(user: User) {
+    setSubmitting(true);
+    if (user.id) {
+      agent.Users.update(user).then(() => {
+        setUsers([...users.filter(u => u.id !== user.id), user])
+        setSelectedUser(user)
+        setEditMode(false);
+        setSubmitting(false);
 
+      })
+    } else { 
+      user.id= uuid();
+      agent.Users.register(user).then(()=>{
+        setUsers([...users, user])
+        setSelectedUser(user)
+        setEditMode(false);
+        setSubmitting(false);
+      })
+    }
   }
-  function handDeleteUser(id: string){
-    setUsers([...users.filter(x=> x.id !== id)])
+  function handDeleteUser(id: string) {
+    setUsers([...users.filter(x => x.id !== id)])
   }
-
+  if (loading) return <LoadingComponent content='Loading application' />
 
   //pass the following properties to the appUser dashboard
   return (
     <div >
-      <NavBar 
-       openForm_function={handleFormOpen}
-       />
+      <NavBar
+        openForm_function={handleFormOpen}
+      />
       <Container style={{ marginTop: "7em" }}>
         <AppUserDashboard
           users_state={users}
@@ -76,8 +98,9 @@ function App() {
           openForm_function={handleFormOpen}
           closeForm_function={handleFormClose}
           createOrEditUser_function={handleCreateOrEditUser}
-          deleteUser_function= {handDeleteUser}
-          />
+          deleteUser_function={handDeleteUser}
+          submitting_state={submitting}
+        />
         {/* <LoginView/>  */}
         {/* <RegisterView/> */}
         {/* <ApplicantView/> */}
