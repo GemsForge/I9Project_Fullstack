@@ -9,9 +9,13 @@ import AppUserDashboard from './app/features/user/dashboard/appUser.dashboard';
 import agent from './app/api/agent';
 import { v4 as uuid } from 'uuid';
 import LoadingComponent from './app/layout/LoadingComponent';
+import { useStore } from './app/stores/store';
+import { observer } from "mobx-react-lite"
 
 
 function App() {
+
+  const {appUserStore} = useStore();
   //OBJECT STATES
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User | undefined>();
@@ -88,6 +92,8 @@ function App() {
         openForm_function={handleFormOpen}
       />
       <Container style={{ marginTop: "7em" }}>
+
+        <h2>{appUserStore.title}</h2>
         <AppUserDashboard
           users_state={users}
           selectedUser_state={selectedUser}
@@ -109,5 +115,5 @@ function App() {
     </div>
   );
 }
-
-export default App;
+//This will observe all of the observer in the component
+export default observer(App);
