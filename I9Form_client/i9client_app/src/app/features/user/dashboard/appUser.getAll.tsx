@@ -10,7 +10,7 @@ import { observer } from "mobx-react-lite";
 export default observer( function UserList(){
    
     const{appUserStore} =useStore();
-    const{users: users_state, deleteUser: deleteUser_function, loading: loading_state}=appUserStore
+    const{userByName: users_state, deleteUser: deleteUser_function, loading: loading_state}=appUserStore
     const [target, setTarget] = useState('');
 
     function handleUserDelete(e: SyntheticEvent<HTMLButtonElement>, id: string){

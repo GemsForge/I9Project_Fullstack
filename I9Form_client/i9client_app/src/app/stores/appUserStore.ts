@@ -6,8 +6,8 @@ import { v4 as uuid } from "uuid";
 export default class AppUserStore {
   //Create properties needed
   users: User[] = []; //init state = empty around
-  //   //MAP<user.id, User>
-  //   userRegistry= new Map<string, User>();
+  //MAP<user.id, User>, We can sort by a field. username, role, etc
+  userRegistry = new Map<string, User>();
   selectedUser: User | undefined = undefined; //init state = User or Null
   editMode = false;
   loading = false;
@@ -24,6 +24,12 @@ export default class AppUserStore {
     //Auto will observe all of the variables in the store
     makeAutoObservable(this);
   }
+  //COMPUTED property prop
+  get userByName() {
+    return Array.from(this.userRegistry.values()).sort((a, b) =>
+      a.firstName > b.firstName ? 1 : -1
+    );
+  }
 
   //ACTION
   //We can
@@ -35,7 +41,7 @@ export default class AppUserStore {
       const users = await agent.Users.list();
       users.forEach((user) => {
         // user.date = user.date.split('T')[0];
-        this.users.push(user);
+        this.userRegistry.set(user.id, user);
       });
       this.setLoadingInitial(false);
     } catch (error) {
@@ -49,7 +55,10 @@ export default class AppUserStore {
     this.loadingInitial = state;
   };
   selectUser = (id: string) => {
-    this.selectedUser = this.users.find((u) => u.id === id);
+    // this.selectedUser = this.users.find((u) => u.id === id);
+
+    //Using MAP
+    this.selectedUser = this.userRegistry.get(id);
   };
   cancelSelectUser = () => {
     this.selectedUser = undefined;
@@ -68,7 +77,9 @@ export default class AppUserStore {
     try {
       await agent.Users.register(user);
       runInAction(() => {
-        this.users.push(user);
+        // this.users.push(user);
+        //Using MAP
+        this.userRegistry.set(user.id, user);
         this.selectedUser = user;
         this.editMode = false;
         this.loading = false;
@@ -85,10 +96,11 @@ export default class AppUserStore {
     try {
       await agent.Users.update(user);
       runInAction(() => {
-        this.users = this.users = [
-          ...this.users.filter((u) => u.id !== user.id),
-          user,
-        ];
+        // this.users = [
+        //   ...this.users.filter((u) => u.id !== user.id),
+        //   user];
+        //Using MAP
+        this.userRegistry.set(user.id, user);
         this.selectedUser = user;
         this.editMode = false;
         this.loading = false;
@@ -105,7 +117,8 @@ export default class AppUserStore {
     try {
       await agent.Users.delete(id);
       runInAction(() => {
-        this.users = [...this.users.filter((u) => u.id !== id)];
+        // this.users = [...this.users.filter((u) => u.id !== id)];
+        this.userRegistry.delete(id);
         //IF the id passed into function matches the selected user id in the db, call the cancelSelectUser()
         if (this.selectedUser?.id === id) this.cancelSelectUser();
         //turn off loading
