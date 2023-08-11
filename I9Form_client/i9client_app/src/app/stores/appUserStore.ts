@@ -11,7 +11,7 @@ export default class AppUserStore {
   selectedUser: User | undefined = undefined; //init state = User or Null
   editMode = false;
   loading = false;
-  loadingInitial = false; //THIS is what gets observered
+  loadingInitial = true; //THIS is what gets observered
   submitting = false;
 
   constructor() {
@@ -34,7 +34,7 @@ export default class AppUserStore {
   //ACTION
   //We can
   loadUsers = async () => {
-    this.setLoadingInitial(true);
+    
     //syncrhonous code in try catch
     try {
       //TODO: will need this pattern for parsing date
