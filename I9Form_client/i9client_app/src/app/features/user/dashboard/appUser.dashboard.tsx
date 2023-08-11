@@ -1,39 +1,17 @@
 import { Grid, Label } from "semantic-ui-react";
-import User from "../user.type";
 import AppUserList from "./appUser.getAll";
 import UserForm from "./appUser.register";
 import TestBanner from "../../../../test/TestBanner";
 import AppUserDetails from "./appUser.details";
-
-
-
-
-interface Props {
-    users_state: User[];
-    selectedUser_state: User | undefined;
-    //passing function as prop  => return type void
-    selectUser_function: (id: string) => void;
-    cancelSelectUser_function: () => void;
-    editMode_state: boolean;
-    openForm_function: (id: string) => void;
-    closeForm_function: () => void;
-    createOrEditUser_function: (user: User) => void;
-    deleteUser_function: (id: string) => void;
-    submitting_state: boolean;
-
-}
+import { useStore } from "../../../stores/store";
+import { observer } from "mobx-react-lite"
 
 //add props to the function dashboard
-export default function AppUserDashboard({
-    users_state, selectedUser_state,
-    selectUser_function, cancelSelectUser_function,
-    editMode_state,
-    openForm_function, closeForm_function,
-    createOrEditUser_function,
-    deleteUser_function,
-    submitting_state
+export default observer(function AppUserDashboard() {
+    const { appUserStore } = useStore();
+    //destructure properties needed from the state store
+    const { selectedUser, editMode } = appUserStore;
 
-}: Props) {
 
     return (
         <>
@@ -42,10 +20,7 @@ export default function AppUserDashboard({
             <Grid>
 
                 < Grid.Column width='10'>
-                    <AppUserList
-                        users_state={users_state}
-                        selectUser_function={selectUser_function}
-                        deleteUser_function={deleteUser_function} />
+                    <AppUserList />
                 </Grid.Column>
                 <Grid.Column width='5'>
                     {/* Looping the Appuser Details list with the 2 conditions.
@@ -55,23 +30,12 @@ export default function AppUserDashboard({
                         <AppUserDetails user={state_users[0]} />} */}
 
                     {/* IF selectedUser exists AND The component is NOT already in editmode THEN.... */}
-                    {selectedUser_state && !editMode_state &&
-                        <AppUserDetails
-                            user_state={selectedUser_state}
-                            cancelSelectUser_function={cancelSelectUser_function}
-                            openForm_function={openForm_function}
-                        />}
-                    {editMode_state &&
-                        <UserForm user_state={selectedUser_state}
-                            closeForm_function={closeForm_function}
-                            createOrEdit_function={createOrEditUser_function}
-                            submitting_state={submitting_state}
-
-                        />}
-
-                    {/* <GetUserComponent /> */}
+                    {selectedUser && !editMode &&
+                        <AppUserDetails />}
+                    {editMode &&
+                        <UserForm />}
                 </Grid.Column>
             </Grid>
         </>
     )
-}
+})

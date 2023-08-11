@@ -1,20 +1,121 @@
-import{makeAutoObservable, observable, action} from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
+import agent from "../api/agent";
+import User from "../features/user/user.type";
+import { v4 as uuid } from "uuid";
 
-export default class AppUserStore{
-    title='Hello from MOBX!';
+export default class AppUserStore {
+  //Create properties needed
+  users: User[] = []; //init state = empty around
+  //   //MAP<user.id, User>
+  //   userRegistry= new Map<string, User>();
+  selectedUser: User | undefined = undefined; //init state = User or Null
+  editMode = false;
+  loading = false;
+  loadingInitial = false; //THIS is what gets observered
+  submitting = false;
 
-    constructor(){
-        //THIS function is getting called when THIS key word is used
-        // makeObservable(this,{
-        //     title: observable,
-        //     setTitle: action
-        // })
+  constructor() {
+    //THIS function is getting called when THIS key word is used
+    // makeObservable(this,{
+    //     title: observable,
+    //     setTitle: action
+    // })
 
-        //Auto will observe all of the variables in the store
-        makeAutoObservable(this)
+    //Auto will observe all of the variables in the store
+    makeAutoObservable(this);
+  }
+
+  //ACTION
+  //We can
+  loadUsers = async () => {
+    this.setLoadingInitial(true);
+    //syncrhonous code in try catch
+    try {
+      //TODO: will need this pattern for parsing date
+      const users = await agent.Users.list();
+      users.forEach((user) => {
+        // user.date = user.date.split('T')[0];
+        this.users.push(user);
+      });
+      this.setLoadingInitial(false);
+    } catch (error) {
+      console.log(error);
+      this.setLoadingInitial(false);
     }
+  };
 
-    setTitle(){
-        this.title = this.title + '!';
+  //Alterantive to wrapping the above action with runAction method wrapper
+  setLoadingInitial = (state: boolean) => {
+    this.loadingInitial = state;
+  };
+  selectUser = (id: string) => {
+    this.selectedUser = this.users.find((u) => u.id === id);
+  };
+  cancelSelectUser = () => {
+    this.selectedUser = undefined;
+  };
+  openForm = (id?: string) => {
+    //IF onClick={(id)}
+    id ? this.selectUser(id) : this.cancelSelectUser();
+    this.editMode = true;
+  };
+  closeForm = () => {
+    this.editMode = false;
+  };
+  createUser = async (user: User) => {
+    this.loading = true;
+    user.id = uuid();
+    try {
+      await agent.Users.register(user);
+      runInAction(() => {
+        this.users.push(user);
+        this.selectedUser = user;
+        this.editMode = false;
+        this.loading = false;
+      });
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        this.loading = false;
+      });
     }
+  };
+  updateUser = async (user: User) => {
+    this.loading = true;
+    try {
+      await agent.Users.update(user);
+      runInAction(() => {
+        this.users = this.users = [
+          ...this.users.filter((u) => u.id !== user.id),
+          user,
+        ];
+        this.selectedUser = user;
+        this.editMode = false;
+        this.loading = false;
+      });
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  };
+  deleteUser = async (id: string) => {
+    this.loading = true;
+    try {
+      await agent.Users.delete(id);
+      runInAction(() => {
+        this.users = [...this.users.filter((u) => u.id !== id)];
+        //IF the id passed into function matches the selected user id in the db, call the cancelSelectUser()
+        if (this.selectedUser?.id === id) this.cancelSelectUser();
+        //turn off loading
+        this.loading = false;
+      });
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  };
 }

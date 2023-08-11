@@ -1,18 +1,24 @@
 import { Segment, Item, Button } from "semantic-ui-react";
-import User from "../user.type";
+import { useStore } from "../../../stores/store";
+import { SyntheticEvent, useState } from "react";
+import { observer } from "mobx-react-lite";
 
 //Pass User List as a prop
 //pass select user function as a prop
-interface Props{
-    users_state: User[];
-      //passing function as prop  => return type void
-    selectUser_function: (id: string) => void;
-    deleteUser_function: (id: string) => void;
-    
 
-}
 //pass props into User list function
-export default function UserList({users_state,selectUser_function, deleteUser_function}: Props){
+export default observer( function UserList(){
+   
+    const{appUserStore} =useStore();
+    const{users: users_state, deleteUser: deleteUser_function, loading: loading_state}=appUserStore
+    const [target, setTarget] = useState('');
+
+    function handleUserDelete(e: SyntheticEvent<HTMLButtonElement>, id: string){
+        setTarget(e.currentTarget.name);
+        deleteUser_function(id);
+    }
+   
+    
     return(
         <Segment>
             <Item.Group divided>
@@ -27,10 +33,13 @@ export default function UserList({users_state,selectUser_function, deleteUser_fu
                             </Item.Description>
                             <Item.Extra>
                                 {/* waits for the onClick event */}
-                                <Button onClick={()=>selectUser_function(user.id)} floated='right'
+                                <Button onClick={()=>appUserStore.selectUser(user.id)} floated='right'
                                 content='View' primary/>
-                                 <Button onClick={()=>deleteUser_function(user.id)} floated='right'
-                                content='Delete' secondary/>
+                                 <Button 
+                                 loading={loading_state && target === user.id}
+                                 onClick={(e)=>handleUserDelete(e,user.id)} floated='right'
+                                content='Delete' 
+                                secondary/>
                             </Item.Extra>
                         </Item.Content>
                     </Item>
@@ -39,4 +48,4 @@ export default function UserList({users_state,selectUser_function, deleteUser_fu
         </Segment>
     )
     
-}
+})

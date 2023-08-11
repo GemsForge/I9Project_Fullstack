@@ -1,16 +1,17 @@
 import { Button, Card, Image, List} from "semantic-ui-react";
-import User from "../user.type";
+import { useStore } from "../../../stores/store";
+import LoadingComponent from "../../../layout/LoadingComponent";
 
 
-interface Props {
-    user_state: User
-    cancelSelectUser_function: () => void;
-    openForm_function:(id:string) => void;
+
+export default function AppUserDetails() {
+    const{appUserStore} = useStore();
+    //destructure object state from the store
+    const {selectedUser: user_state, openForm, cancelSelectUser} = appUserStore;
+
+    //Check to see if user exist
+    if(!user_state) return <LoadingComponent/>; //<- componenet wont be displayed
     
-
-}
-
-export default function AppUserDetails({ user_state, cancelSelectUser_function, openForm_function}: Props) {
     return (
        
             <Card>
@@ -33,8 +34,8 @@ export default function AppUserDetails({ user_state, cancelSelectUser_function, 
            
             <Card.Content extra>
                 <Button.Group width='2'>
-                    <Button onClick={()=> openForm_function(user_state.id)} basic secondary content='Edit' />
-                    <Button onClick={cancelSelectUser_function} basic negative content='Cancel' />
+                    <Button onClick={()=> openForm(user_state.id)} basic secondary content='Edit' />
+                    <Button onClick={cancelSelectUser} basic negative content='Cancel' />
                 </Button.Group>
             </Card.Content>
             </Card>

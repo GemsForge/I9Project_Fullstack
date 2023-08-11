@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './app/layout/styles.css';
 import App from './App';
@@ -10,7 +9,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-//Apply STORE CONTEXT to the entire app
+  //Apply STORE CONTEXT to the entire app
   <StoreContext.Provider value={store}>
     <App />
   </StoreContext.Provider>

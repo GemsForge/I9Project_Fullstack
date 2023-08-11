@@ -45,20 +45,11 @@ const Users = {
   update: (user: User) => request.put<void>(`update/${user.id}`, user),
   delete: (id: string) => axios.delete<void>(`delete/${id}`),
 };
-// const User={
-//     //The request endpoint from the server that returns a promise
-//     //Http get: GetUser({id}
-//     user: () => request.get<User>('/register')
-// }
-const NewUser = {
-  //Http post: RegisterUser()
-};
 
 const agent = {
   //the file will contatin the http request
-  Users,
-  // User,
-  NewUser,
+  Users
+  
 };
 
 export default agent;
