@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite";
 export default observer( function UserFrom() {
     const { appUserStore } = useStore();
     //Destructure props from the store
-    const { selectedUser: selectedUser_state, closeForm: closeForm_function, createUser, updateUser, loading: loading_state } = appUserStore;
+    const { selectedUser: selectedUser_state, createUser, updateUser, loading: loading_state } = appUserStore;
 
 
     //Set initialstate of the form inputs
@@ -54,7 +54,7 @@ export default observer( function UserFrom() {
                     <Form.Input type='text' placeholder='Username' value={user_state.username} name='username' />
                     <Form.Input type='text' placeholder='Password' value={user_state.password} name='password' />
                     <Button loading={loading_state} floated='right' positive type='submit' content='Submit' />
-                    <Button onClick={closeForm_function} floated='right' basic type='button' content='Cancel' value={user_state.firstName} />
+                    <Button floated='right' basic type='button' content='Cancel' value={user_state.firstName} />
                 </Form>
             </Segment>
         </>

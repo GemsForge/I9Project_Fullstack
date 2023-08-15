@@ -34,14 +34,13 @@ export default class AppUserStore {
   //ACTION
   //We can
   loadUsers = async () => {
-    
+    this.setLoadingInitial(true);
     //syncrhonous code in try catch
     try {
       //TODO: will need this pattern for parsing date
       const users = await agent.Users.list();
       users.forEach((user) => {
-        // user.date = user.date.split('T')[0];
-        this.userRegistry.set(user.id, user);
+        this.setUser(user);
       });
       this.setLoadingInitial(false);
     } catch (error) {
@@ -50,29 +49,40 @@ export default class AppUserStore {
     }
   };
 
+  loadUser = async (id: string) => {
+
+    let user = this.getUser(id);
+    if (user)  this.selectedUser = user; //WE can access this from the details page
+    else {
+      this.setLoadingInitial(true);
+      try {
+        user = await agent.Users.details(id);
+        //if the user id returns THEN set loadInitials
+        this.setUser(user);
+        //set the user from db w/ user object
+        this.selectedUser = user;
+        this.setLoadingInitial(false);
+      } catch (error) {
+        console.log(error);
+        this.setLoadingInitial(false);
+      }
+    }
+  };
+  private setUser = (user: User) => {
+    // user.date = user.date.split('T')[0];
+    this.userRegistry.set(user.id, user);
+  };
+
+  private getUser = (id: string) => {
+    return this.userRegistry.get(id);
+  };
   //Alterantive to wrapping the above action with runAction method wrapper
   setLoadingInitial = (state: boolean) => {
     this.loadingInitial = state;
   };
-  selectUser = (id: string) => {
-    // this.selectedUser = this.users.find((u) => u.id === id);
-
-    //Using MAP
-    this.selectedUser = this.userRegistry.get(id);
-  };
-  cancelSelectUser = () => {
-    this.selectedUser = undefined;
-  };
-  openForm = (id?: string) => {
-    //IF onClick={(id)}
-    id ? this.selectUser(id) : this.cancelSelectUser();
-    this.editMode = true;
-  };
-  closeForm = () => {
-    this.editMode = false;
-  };
+  
   createUser = async (user: User) => {
-    this.loading = true;
+    this.setLoadingInitial(true)
     user.id = uuid();
     try {
       await agent.Users.register(user);
@@ -82,17 +92,17 @@ export default class AppUserStore {
         this.userRegistry.set(user.id, user);
         this.selectedUser = user;
         this.editMode = false;
-        this.loading = false;
+        this.setLoadingInitial(false);
       });
     } catch (error) {
       console.log(error);
       runInAction(() => {
-        this.loading = false;
+        this.setLoadingInitial(false);
       });
     }
   };
   updateUser = async (user: User) => {
-    this.loading = true;
+    this.setLoadingInitial(true)
     try {
       await agent.Users.update(user);
       runInAction(() => {
@@ -103,31 +113,29 @@ export default class AppUserStore {
         this.userRegistry.set(user.id, user);
         this.selectedUser = user;
         this.editMode = false;
-        this.loading = false;
+        this.setLoadingInitial(false);
       });
     } catch (error) {
       console.log(error);
       runInAction(() => {
-        this.loading = false;
+        this.setLoadingInitial(false);
       });
     }
   };
   deleteUser = async (id: string) => {
-    this.loading = true;
+    this.setLoadingInitial(true)
     try {
       await agent.Users.delete(id);
       runInAction(() => {
         // this.users = [...this.users.filter((u) => u.id !== id)];
         this.userRegistry.delete(id);
-        //IF the id passed into function matches the selected user id in the db, call the cancelSelectUser()
-        if (this.selectedUser?.id === id) this.cancelSelectUser();
         //turn off loading
-        this.loading = false;
+        this.setLoadingInitial(false);
       });
     } catch (error) {
       console.log(error);
       runInAction(() => {
-        this.loading = false;
+        this.setLoadingInitial(false);
       });
     }
   };

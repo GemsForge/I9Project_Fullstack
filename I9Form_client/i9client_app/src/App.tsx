@@ -13,6 +13,7 @@ function App() {
     <div >
       <NavBar />
       <Container style={{ marginTop: "7em" }}>
+      {/* Outlet gets swapped with the selected component route */}
         <Outlet />
         {/* <LoginView/>  */}
         {/* <RegisterView/> */}

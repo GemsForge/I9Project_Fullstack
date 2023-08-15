@@ -2,6 +2,7 @@ import { Segment, Item, Button } from "semantic-ui-react";
 import { useStore } from "../../../stores/store";
 import { SyntheticEvent, useState } from "react";
 import { observer } from "mobx-react-lite";
+import { Link } from "react-router-dom";
 
 //Pass User List as a prop
 //pass select user function as a prop
@@ -32,8 +33,8 @@ export default observer( function UserList(){
                                 <div>{user.username}</div>
                             </Item.Description>
                             <Item.Extra>
-                                {/* waits for the onClick event */}
-                                <Button onClick={()=>appUserStore.selectUser(user.id)} floated='right'
+                                {/* Replace onClick function with Link to User details route (onClick={()=> openForm(user_state.id)}) */}
+                                <Button as={Link} to={`/appUsers/${user.id}`} floated='right'
                                 content='View' primary/>
                                  <Button 
                                  loading={loading_state && target === user.id}

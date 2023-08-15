@@ -3,15 +3,17 @@ import App from "../../App";
 import HomePage from "../features/home/HomePage";
 import AppUserRegister from "../features/user/dashboard/appUser.register";
 import AppUserDashboard from "../features/user/dashboard/appUser.dashboard";
+import AppUserDetails from "../features/user/dashboard/appUser.details";
 
 
 export const routes : RouteObject[]= [
     {
         path: '/',
-        element: <App/>,
+        element: <App />,
         children: [
             {path: '', element: <HomePage/>},
             {path: 'appUsers', element: <AppUserDashboard/>},
+            {path: 'appUsers/:id', element: <AppUserDetails/>},
             {path: 'registerUser', element: <AppUserRegister/>}
         ]
     }
