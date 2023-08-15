@@ -43,7 +43,7 @@ export default observer(function AppUserDetails() {
             <Card.Content extra>
                 <Button.Group width='2'>
                     <Button as={Link} to={`/manageUser/${user_state.id}`} basic secondary content='Edit' />
-                    <Button basic negative content='Cancel' />
+                    <Button as={Link} to='/appUsers' basic negative content='Cancel' />
                 </Button.Group>
             </Card.Content>
         </Card>

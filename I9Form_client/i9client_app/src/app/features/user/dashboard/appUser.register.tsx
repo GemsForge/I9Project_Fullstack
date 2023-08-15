@@ -2,7 +2,7 @@ import { Button, Form, Label, Segment } from "semantic-ui-react";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useStore } from "../../../stores/store";
 import { observer } from "mobx-react-lite";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import User from "../user.type";
 import LoadingComponent from "../../../layout/LoadingComponent";
 import { v4 as uuid } from "uuid";
@@ -11,7 +11,7 @@ import { v4 as uuid } from "uuid";
 export default observer( function UserFrom() {
     const { appUserStore } = useStore();
     //Destructure props from the store
-    const { selectedUser: selectedUser_state, createUser, updateUser, loading: loading_state, loadUser} = appUserStore;
+    const { createUser, updateUser, loading: loading_state, loadUser} = appUserStore;
     const{id} = useParams(); //retrieve the user from root paramaters
     const naviagate= useNavigate();
     //INITIAL STATE: Stores the user state in component state
@@ -65,7 +65,7 @@ export default observer( function UserFrom() {
                     <Form.Input type='text' placeholder='Username' value={user_state.username} name='username' />
                     <Form.Input type='text' placeholder='Password' value={user_state.password} name='password' />
                     <Button loading={loading_state} floated='right' positive type='submit' content='Submit' />
-                    <Button floated='right' basic type='button' content='Cancel' value={user_state.firstName} />
+                    <Button as={Link} to='/appUsers' floated='right' basic type='button' content='Cancel'/>
                 </Form>
             </Segment>
         </>

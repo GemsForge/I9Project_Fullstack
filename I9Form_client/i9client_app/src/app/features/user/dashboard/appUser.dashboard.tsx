@@ -10,10 +10,10 @@ import LoadingComponent from "../../../layout/LoadingComponent";
 export default observer(function AppUserDashboard() {
     //OBJECT STATES
     const { appUserStore } = useStore();
-    
+    const{loadUsers, userRegistry} = appUserStore;
     useEffect(() => {
-        appUserStore.loadUsers()
-    }, [appUserStore])
+      if(userRegistry.size <= 1 ) loadUsers()
+    }, [userRegistry.size, loadUsers])
     // We can make HTTP requests when the component mounts by calling the useEffect hook with an empty array in the 2nd argument.
     // axios.get<User[]>('http://localhost:5000/api/appuser').then(response => {
     //   setUsers(response.data);
