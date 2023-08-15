@@ -14,8 +14,9 @@ export const routes : RouteObject[]= [
             {path: '', element: <HomePage/>},
             {path: 'appUsers', element: <AppUserDashboard/>},
             {path: 'appUsers/:id', element: <AppUserDetails/>},
-            {path: 'registerUser', element: <AppUserRegister/>},
-            {path: 'manageUser/:id', element: <AppUserRegister/>}//loads the form but with user information for 'edit' 
+            //ADD a key to differientiate the to paths/ Resets the state between the paths
+            {path: 'registerUser', element: <AppUserRegister key="register"/>},
+            {path: 'manageUser/:id', element: <AppUserRegister key="manage"/>}//loads the form but with user information for 'edit' 
         ]
     }
 
