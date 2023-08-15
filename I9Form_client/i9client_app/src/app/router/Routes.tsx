@@ -14,7 +14,8 @@ export const routes : RouteObject[]= [
             {path: '', element: <HomePage/>},
             {path: 'appUsers', element: <AppUserDashboard/>},
             {path: 'appUsers/:id', element: <AppUserDetails/>},
-            {path: 'registerUser', element: <AppUserRegister/>}
+            {path: 'registerUser', element: <AppUserRegister/>},
+            {path: 'manageUser/:id', element: <AppUserRegister/>}//loads the form but with user information for 'edit' 
         ]
     }
 

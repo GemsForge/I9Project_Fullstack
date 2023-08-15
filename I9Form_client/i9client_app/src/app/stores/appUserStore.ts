@@ -32,7 +32,6 @@ export default class AppUserStore {
   }
 
   //ACTION
-  //We can
   loadUsers = async () => {
     this.setLoadingInitial(true);
     //syncrhonous code in try catch
@@ -49,19 +48,22 @@ export default class AppUserStore {
     }
   };
 
+  //TODO: Method needs to return a user. Return IF & TRY
   loadUser = async (id: string) => {
-
     let user = this.getUser(id);
-    if (user)  this.selectedUser = user; //WE can access this from the details page
-    else {
+    if (user) {
+      this.selectedUser = user; //WE can access this from the details page
+      return user;
+    } else {
       this.setLoadingInitial(true);
       try {
         user = await agent.Users.details(id);
         //if the user id returns THEN set loadInitials
         this.setUser(user);
         //set the user from db w/ user object
-        this.selectedUser = user;
+        runInAction(()=> this.selectedUser = user); //<- RESOLVES the MOBX 'modify' error in the broswer inspect
         this.setLoadingInitial(false);
+        return user;
       } catch (error) {
         console.log(error);
         this.setLoadingInitial(false);
@@ -80,9 +82,9 @@ export default class AppUserStore {
   setLoadingInitial = (state: boolean) => {
     this.loadingInitial = state;
   };
-  
+
   createUser = async (user: User) => {
-    this.setLoadingInitial(true)
+    this.setLoadingInitial(true);
     user.id = uuid();
     try {
       await agent.Users.register(user);
@@ -102,7 +104,7 @@ export default class AppUserStore {
     }
   };
   updateUser = async (user: User) => {
-    this.setLoadingInitial(true)
+    this.setLoadingInitial(true);
     try {
       await agent.Users.update(user);
       runInAction(() => {
@@ -123,7 +125,7 @@ export default class AppUserStore {
     }
   };
   deleteUser = async (id: string) => {
-    this.setLoadingInitial(true)
+    this.setLoadingInitial(true);
     try {
       await agent.Users.delete(id);
       runInAction(() => {

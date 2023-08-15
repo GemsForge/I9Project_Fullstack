@@ -1,28 +1,30 @@
 import { Button, Form, Label, Segment } from "semantic-ui-react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useStore } from "../../../stores/store";
 import { observer } from "mobx-react-lite";
+import { useParams } from "react-router-dom";
+import User from "../user.type";
+import LoadingComponent from "../../../layout/LoadingComponent";
 
 
 export default observer( function UserFrom() {
     const { appUserStore } = useStore();
     //Destructure props from the store
-    const { selectedUser: selectedUser_state, createUser, updateUser, loading: loading_state } = appUserStore;
-
-
-    //Set initialstate of the form inputs
-    //IF User exist THEN set state to...
-    const initialstate = selectedUser_state ?? {
+    const { selectedUser: selectedUser_state, createUser, updateUser, loading: loading_state, loadUser} = appUserStore;
+    const{id} = useParams(); //retrieve the user from root paramaters
+    //INITIAL STATE: Stores the user state in component state
+    const[user_state, setUser_state] = useState<User>({
         id: '',
         firstName: '',
         lastName: '',
         email: '',
         username: '',
         password: '',
-    }
+    });
 
-    //RESET initial state
-    const [user_state, setUser_state] = useState(initialstate);
+    useEffect(() => {
+        if(id) loadUser(id).then(user => setUser_state(user!))
+    }, [id, loadUser]); //CRUCIAL: Add the dependencies or it'll permenately add users
 
     //HANDLE SUBMIT
     function handleSubmit() {
@@ -39,6 +41,7 @@ export default observer( function UserFrom() {
         //[ ]: target the property that matches 'name' and key 'value'
         setUser_state({ ...user_state, [name]: value })
     }
+    if (loading_state) return <LoadingComponent content="Loading User"/>
 
     return (
         <>

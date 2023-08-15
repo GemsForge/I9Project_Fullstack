@@ -2,7 +2,7 @@ import { Button, Card, Image, List } from "semantic-ui-react";
 import { useStore } from "../../../stores/store";
 import LoadingComponent from "../../../layout/LoadingComponent";
 import { observer } from "mobx-react-lite";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 
 
@@ -42,7 +42,7 @@ export default observer(function AppUserDetails() {
 
             <Card.Content extra>
                 <Button.Group width='2'>
-                    <Button basic secondary content='Edit' />
+                    <Button as={Link} to={`/manageUser/${user_state.id}`} basic secondary content='Edit' />
                     <Button basic negative content='Cancel' />
                 </Button.Group>
             </Card.Content>

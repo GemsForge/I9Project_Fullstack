@@ -16,7 +16,7 @@ export default function NavBar() {
                 < Menu.Item  as={NavLink} to='/appUsers' name=' Users' />
                 <Menu.Item>
                     {/* //Renders when clicked */}
-                    <Button as={NavLink} to='registerUser'positive content='Register User' />
+                    <Button as={NavLink} to='/registerUser'positive content='Register User' />
                 </Menu.Item>
 
             </Container>
