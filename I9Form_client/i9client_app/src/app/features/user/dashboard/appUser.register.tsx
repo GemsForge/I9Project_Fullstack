@@ -2,9 +2,10 @@ import { Button, Form, Label, Segment } from "semantic-ui-react";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useStore } from "../../../stores/store";
 import { observer } from "mobx-react-lite";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import User from "../user.type";
 import LoadingComponent from "../../../layout/LoadingComponent";
+import { v4 as uuid } from "uuid";
 
 
 export default observer( function UserFrom() {
@@ -12,6 +13,7 @@ export default observer( function UserFrom() {
     //Destructure props from the store
     const { selectedUser: selectedUser_state, createUser, updateUser, loading: loading_state, loadUser} = appUserStore;
     const{id} = useParams(); //retrieve the user from root paramaters
+    const naviagate= useNavigate();
     //INITIAL STATE: Stores the user state in component state
     const[user_state, setUser_state] = useState<User>({
         id: '',
@@ -32,6 +34,12 @@ export default observer( function UserFrom() {
         //passes the user object. If the user state object has an id, update or create
         user_state.id ? updateUser(user_state) :
             createUser(user_state);
+            if(!user_state.id){
+                user_state.id = uuid();
+                createUser(user_state).then(() => naviagate(`/appUsers/${user_state.id}`))//the id JUST created
+            }
+            else 
+            updateUser(user_state).then(()=> naviagate(`/appUsers/${user_state.id}`))
     }
     //HANDLE INPUT  event type ChangeEvent<type HTMLInputElement> ADD HTMLTextArea... & so IF other than <TextArea>
     function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
