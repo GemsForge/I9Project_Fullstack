@@ -1,9 +1,13 @@
-import { Button, Card, Image, List } from "semantic-ui-react";
+import { Button, Card, Grid, Image, List } from "semantic-ui-react";
 import { useStore } from "../../../stores/store";
 import LoadingComponent from "../../../layout/LoadingComponent";
 import { observer } from "mobx-react-lite";
 import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import ActivityDetailHeader from "../details/appUserDetails.header";
+import ActivityDetailChat from "../details/appUserDetails.chat";
+import ActivityDetailInfo from "../details/appUserDetails.info";
+import ActivityDetailSidebar from "../details/appUserDetails.sidebar";
 
 
 
@@ -21,34 +25,15 @@ export default observer(function AppUserDetails() {
     if (loadingInitial || !user_state) return <LoadingComponent content="Loading Application" />; //<- componenet wont be displayed
 
     return (
-
-        <Card>
-            {/* TODO: add profile picture blob property to app user entity */}
-            {/* <Image src={`/assets/images/${user.profile_image}`}/> */}
-            <Image size="small" src={'/assets/images/avatar.svg'} />
-
-            <Card.Content>
-
-                <Card.Header content={`${user_state.firstName} ${user_state.lastName}`} />
-                <Card.Meta content={user_state.id}></Card.Meta>
-                <Card.Description>
-                    <List.Item>{<strong>User Email:</strong>} User Email: {user_state.email}</List.Item>
-                    <List.Item> {<strong>User Username:</strong>} {user_state.username}</List.Item>
-                    <List.Item> {<strong>User Password:</strong>} {user_state.password}</List.Item>
-                </Card.Description>
-
-            </Card.Content>
-
-
-            <Card.Content extra>
-                <Button.Group width='2'>
-                    <Button as={Link} to={`/manageUser/${user_state.id}`} basic secondary content='Edit' />
-                    <Button as={Link} to='/appUsers' basic negative content='Cancel' />
-                </Button.Group>
-            </Card.Content>
-        </Card>
-
-
-
+        <Grid>
+            <Grid.Column width={10}>
+                <ActivityDetailHeader/>
+                <ActivityDetailInfo/>
+                <ActivityDetailChat/>
+            </Grid.Column>
+            <Grid.Column width={6}>
+                <ActivityDetailSidebar/>
+            </Grid.Column>
+        </Grid>
     )
 })
